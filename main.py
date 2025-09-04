@@ -53,7 +53,7 @@ def update_expense():#Updates previously stored expense, has some issues - minor
                                 print("Only these options are available,")
                 else:
                     print("No other options available.")
-    with open(filename,"a+") as file2:
+    with open(filename,"w+") as file2:
         writer=csv.writer(file2)
         for j in main_lis:
             writer.writerow(j)

@@ -16,7 +16,7 @@ def add_expense(n): #Adds new expense
                 writer.writerow(lis)
         file.close()
             
-def update_expense():#Updates previously stored expense
+def update_expense():#Updates previously stored expense, has some issues - minor data loss
     main_lis=[]
     sec_lis=[]
     with open(filename,"r",newline="") as file:
@@ -58,7 +58,7 @@ def update_expense():#Updates previously stored expense
         for j in main_lis:
             writer.writerow(j)
         for i in sec_lis:
-            writer.writerow(i)
+                writer.writerow(i)
   
 def view_all(): #Shows all expenses
     with open(filename,"r") as file:
@@ -82,14 +82,15 @@ def delete(): #Deletes expenses through itration
                 ques=input("Do you want to delete this file (yes/no):")
                 if ques.lower()=="no":
                     main_lis.append(i)
-                    with open(filename,"w") as file1:
-                        writer=csv.writer(file1)
-                        for i in main_lis:
-                            writer.writerow(i)
                 elif ques.lower()=="yes":
-                    print("Record deleted.")
+                    with open(filename,"w") as file1:
+                        print("Record deleted.")
                 else:
                     print("Only these options are available.")
+    with open(filename,"a+") as file2:
+        writer=csv.writer(file2)
+        for i in main_lis:
+            writer.writerow(i)
   
 def summary_month(): #Summarises the amount of a purchase in a month of current year
     sum=0
@@ -186,3 +187,4 @@ filename="tracker.csv"
 
 if __name__=="__main__":
     main()
+

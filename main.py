@@ -18,6 +18,7 @@ def add_expense(n): #Adds new expense
             
 def update_expense():#Updates previously stored expense
     main_lis=[]
+    sec_lis=[]
     with open(filename,"r",newline="") as file:
         reader=csv.reader(file)
         for i in reader:
@@ -32,8 +33,6 @@ def update_expense():#Updates previously stored expense
                     ques=input("What do you want to update (expense/description):")
                     with open(filename,"w") as file1:
                         writer=csv.writer(file1)
-                        for j in main_lis:
-                                writer.writerow(j)
                         if ques.lower()=="expense":
                                 try:
                                     new_exp=int(input("Enter new expense:"))
@@ -42,18 +41,24 @@ def update_expense():#Updates previously stored expense
                                 else:
                                     i[2]=new_exp
                                     print("Your updated record is:",i)
-                                    writer.writerow(i)
+                                    sec_lis.append(i)
                                     print("Expense updated.")
                         elif ques.lower()=="description":
                                 new_des=input("Enter new description:")
                                 i[1]=new_des
                                 print("Your updated record is:",i)
-                                writer.writerow(i)
+                                sec_lis.append(i)
                                 print("Description updated.")
                         else:
                                 print("Only these options are available,")
                 else:
                     print("No other options available.")
+    with open(filename,"a+") as file2:
+        writer=csv.writer(file2)
+        for j in main_lis:
+            writer.writerow(j)
+        for i in sec_lis:
+            writer.writerow(i)
   
 def view_all(): #Shows all expenses
     with open(filename,"r") as file:
@@ -66,6 +71,7 @@ def view_all(): #Shows all expenses
                 print(i)
      
 def delete(): #Deletes expenses through itration
+    main_lis=[]
     with open(filename,"r") as file:
         reader=csv.reader(file)
         for i in reader:
@@ -75,7 +81,6 @@ def delete(): #Deletes expenses through itration
                 print(i)         
                 ques=input("Do you want to delete this file (yes/no):")
                 if ques.lower()=="no":
-                    main_lis=[]
                     main_lis.append(i)
                     with open(filename,"w") as file1:
                         writer=csv.writer(file1)

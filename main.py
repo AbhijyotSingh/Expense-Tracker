@@ -16,7 +16,7 @@ def add_expense(n): #Adds new expense
                 writer.writerow(lis)
         file.close()
             
-def update_expense():#Updates previously stored expense, has some issues - minor data loss
+def update_expense():#Updates previously stored expense
     main_lis=[]
     sec_lis=[]
     with open(filename,"r",newline="") as file:
@@ -31,26 +31,24 @@ def update_expense():#Updates previously stored expense, has some issues - minor
                     main_lis.append(i)
                 elif ans.lower()=="yes":
                     ques=input("What do you want to update (expense/description):")
-                    with open(filename,"w") as file1:
-                        writer=csv.writer(file1)
-                        if ques.lower()=="expense":
-                                try:
-                                    new_exp=int(input("Enter new expense:"))
-                                except ValueError:
-                                    print("Only integral values allowed.")
-                                else:
-                                    i[2]=new_exp
-                                    print("Your updated record is:",i)
-                                    sec_lis.append(i)
-                                    print("Expense updated.")
-                        elif ques.lower()=="description":
-                                new_des=input("Enter new description:")
-                                i[1]=new_des
-                                print("Your updated record is:",i)
-                                sec_lis.append(i)
-                                print("Description updated.")
+                    if ques.lower()=="expense":
+                        try:
+                            new_exp=int(input("Enter new expense:"))
+                        except ValueError:
+                            print("Only integral values allowed.")
                         else:
-                                print("Only these options are available,")
+                            i[2]=new_exp
+                            print("Your updated record is:",i)
+                            sec_lis.append(i)
+                            print("Expense updated.")
+                    elif ques.lower()=="description":
+                        new_des=input("Enter new description:")
+                        i[1]=new_des
+                        print("Your updated record is:",i)
+                        sec_lis.append(i)
+                        print("Description updated.")
+                    else:
+                        print("Only these options are available,")
                 else:
                     print("No other options available.")
     with open(filename,"w+") as file2:

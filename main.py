@@ -81,8 +81,7 @@ def delete(): #Deletes expenses through itration
                 if ques.lower()=="no":
                     main_lis.append(i)
                 elif ques.lower()=="yes":
-                    with open(filename,"w") as file1:
-                        print("Record deleted.")
+                    print("Record deleted.")
                 else:
                     print("Only these options are available.")
     with open(filename,"w+") as file2:

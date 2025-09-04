@@ -87,7 +87,7 @@ def delete(): #Deletes expenses through itration
                         print("Record deleted.")
                 else:
                     print("Only these options are available.")
-    with open(filename,"a+") as file2:
+    with open(filename,"w+") as file2:
         writer=csv.writer(file2)
         for i in main_lis:
             writer.writerow(i)
@@ -187,4 +187,3 @@ filename="tracker.csv"
 
 if __name__=="__main__":
     main()
-

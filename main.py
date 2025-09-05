@@ -14,11 +14,9 @@ def add_expense(n): #Adds new expense
             else:
                 lis=[date,des,expense]
                 writer.writerow(lis)
-        file.close()
             
 def update_expense():#Updates previously stored expense
     main_lis=[]
-    sec_lis=[]
     with open(filename,"r",newline="") as file:
         reader=csv.reader(file)
         for i in reader:
@@ -39,24 +37,24 @@ def update_expense():#Updates previously stored expense
                         else:
                             i[2]=new_exp
                             print("Your updated record is:",i)
-                            sec_lis.append(i)
+                            main_lis.append(i)
                             print("Expense updated.")
                     elif ques.lower()=="description":
                         new_des=input("Enter new description:")
                         i[1]=new_des
                         print("Your updated record is:",i)
-                        sec_lis.append(i)
+                        main_lis.append(i)
                         print("Description updated.")
                     else:
                         print("Only these options are available,")
+                        return
                 else:
                     print("No other options available.")
+                    return
     with open(filename,"w+") as file2:
         writer=csv.writer(file2)
         for j in main_lis:
             writer.writerow(j)
-        for i in sec_lis:
-                writer.writerow(i)
   
 def view_all(): #Shows all expenses
     with open(filename,"r") as file:
@@ -84,6 +82,7 @@ def delete(): #Deletes expenses through itration
                     print("Record deleted.")
                 else:
                     print("Only these options are available.")
+                    return
     with open(filename,"w+") as file2:
         writer=csv.writer(file2)
         for i in main_lis:
